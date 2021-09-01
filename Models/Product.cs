@@ -56,44 +56,7 @@ namespace horizon.Models
 
                 return Listpdt;
             }
-            public int CountListDatatable(int length, int start, string searchVal, string tri, string column)
-            {
-                int nbr = 0;
-                using (SqlConnection conn = new SqlConnection(Connectionstrings.Connectionstring()))
-                {
-                    try
-                    {
-                        column = (Convert.ToInt32(column) + 1).ToString();
-                        column = column.Replace("1", "id").Replace("2", "ref").Replace("3", "name").Replace("4", "description")
-                            .Replace("5", "datefab").Replace("6", "type").Replace("7", "price").Replace("8", "qt");
-                        SqlCommand cmd = new SqlCommand("countdatatableproducts", conn);
-                        cmd.CommandType = CommandType.StoredProcedure;
-                        cmd.Parameters.AddWithValue("@number", length);
-                        cmd.Parameters.AddWithValue("@start", start);
-                        cmd.Parameters.AddWithValue("@sortcolumn", column);
-                        cmd.Parameters.AddWithValue("@tri", tri);
-                        cmd.Parameters.AddWithValue("@searchval", searchVal);
-                        conn.Open();
-                        cmd.Connection = conn;
-                        SqlDataReader reader = cmd.ExecuteReader();
-                        while (reader.Read())
-                        {
-                            nbr = Convert.ToInt32(reader["nbr"]);
-                        }
-                        reader.Close();
-                        conn.Close();
-                    }
-                    catch (Exception ex)
-                    {
-                        ex.StackTrace.Replace(Environment.NewLine, ex.ToString());
-                    }
-                }
-
-                return nbr;
-
-            }
-
-
+        
             public override void Add()
             {
                 try
@@ -114,24 +77,6 @@ namespace horizon.Models
                     ex.StackTrace.Replace(Environment.NewLine, ex.ToString());
                 }
 
-            }
-            public int countpdt()
-            {
-                int nb = 0;
-                using (SqlConnection con = new SqlConnection(Connectionstrings.Connectionstring()))
-                {
-                    SqlCommand cmd = new SqlCommand("countproducts", con);
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    con.Open();
-                    SqlDataReader read = cmd.ExecuteReader();
-                    while (read.Read())
-                    {
-                        nb = Convert.ToInt32(read["nb"]);
-                    }
-                    con.Close();
-                }
-
-                return nb;
             }
             public override void Affiche(int id)
             {

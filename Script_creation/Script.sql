@@ -1,4 +1,10 @@
-﻿--Création de la table product
+﻿
+use master
+go
+create database horizon
+go
+use horizon
+--Création de la table product
 IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE='BASE TABLE' AND TABLE_NAME='product') 
 drop table [product]
 go
@@ -15,6 +21,12 @@ DROP PROCEDURE Listproducts
 GO
 create procedure Listproducts as
 select * from product
+go
+IF EXISTS (SELECT * FROM sys.objects WHERE type = 'P' AND name = 'Deleteproduct')
+DROP PROCEDURE selectproductbyid
+GO
+create procedure Deleteproduct @id int as
+delete from product where id=@id
 go
 IF EXISTS (SELECT * FROM sys.objects WHERE type = 'P' AND name = 'selectproductbyid')
 DROP PROCEDURE selectproductbyid
