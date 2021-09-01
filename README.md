@@ -2,4 +2,4 @@
 
 2) Changer le connectionstrings dans le fichier Web.config.
 
-3)Run l'application
+3) Run l'application
